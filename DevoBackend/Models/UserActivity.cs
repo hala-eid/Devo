@@ -1,4 +1,4 @@
-﻿namespace DevoBackend.Models
+namespace DevoBackend.Models
 {
     public class UserActivity
     {

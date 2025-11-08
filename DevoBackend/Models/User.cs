@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using DevoBackend.Models; // <-- where all your model classes are
 
-public class User
+namespace DevoBackend.Models   // <--- THIS was missing
 {
-    public int UserId { get; set; }
+  public class User
+  {
+    // public int UserId { get; set; }
     public string FullName { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PasswordHash { get; set; } = null!;
-    public string? JobTitle { get; set; }
-    public int? DepartmentId { get; set; }
-    public string? PhoneNumber { get; set; }
-    public string? Location { get; set; }
-    public string? Role { get; set; }
-    public string? ProfilePhoto { get; set; }
+    public string JobTitle { get; set; } = null!;
+    public string PhoneNumber { get; set; } = null!;
+    public string Location { get; set; } = null!;
+    public string Role { get; set; } = null!;
+    public string ProfilePhoto { get; set; } = null!;
+    public string Department { get; set; } = null!;
 
     // Navigation properties
     public ICollection<Team> CreatedTeams { get; set; } = new List<Team>();
@@ -28,5 +30,6 @@ public class User
     public ICollection<ContactMessage> ContactMessages { get; set; } = new List<ContactMessage>();
     public ICollection<Note> Notes { get; set; } = new List<Note>();
     public ICollection<UserActivity> UserActivities { get; set; } = new List<UserActivity>();
-}
+  }
 
+}

@@ -1,6 +1,25 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { App } from './app/app';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { importProvidersFrom } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { Register } from './app/pages/register/register';
 
-bootstrapApplication(App, appConfig)
-  .catch((err) => console.error(err));
+bootstrapApplication(App, {
+  providers: [
+    provideRouter(routes),
+    provideHttpClient(),
+    provideAnimations(),
+    importProvidersFrom(
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      NgxIntlTelInputModule
+    )
+  ],
+}).catch(err => console.error(err));

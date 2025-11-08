@@ -1,4 +1,4 @@
-﻿using DevoBackend.Data;
+using DevoBackend.Data;
 using Microsoft.EntityFrameworkCore;
 using DevoBackend.Models;
 
