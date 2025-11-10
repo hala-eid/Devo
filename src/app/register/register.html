@@ -1,0 +1,78 @@
+<div class="main-content-wrapper">
+
+    <div class="taskbar-nav">
+        <a href="#">DASHBOARD</a>
+        <a href="#">REPORTS</a>
+        <a href="#">SETTINGS</a>
+        <a href="#">HELP</a>
+        <a href="#">CONTACT</a>
+    </div>
+    </div>
+
+<div class="register-container">
+    <h2>Create Account</h2>
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                [(ngModel)]="fullName"
+                required
+                (input)="onInputChange()"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                (input)="onInputChange()"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="passwordHash">Password</label>
+            <input
+                type="password"
+                id="passwordHash"
+                name="passwordHash"
+                [(ngModel)]="passwordHash"
+                required
+                (input)="onInputChange()"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                required
+                (input)="onInputChange()"
+            />
+        </div>
+
+        <button type="submit" [disabled]="isLoading">
+            {{ isLoading ? 'Registering...' : 'Register' }}
+        </button>
+        
+    </form>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+    <p>
+        Already have an account?
+        <a (click)="goToLogin()">Login</a>
+    </p>
+</div>

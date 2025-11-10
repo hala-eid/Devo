@@ -1,0 +1,81 @@
+<header class="header">
+  <!-- Logo & Sidebar -->
+  <div class="header-left">
+    <button class="sidebar-toggle" (click)="toggleSidebar()">☰</button>
+    <a routerLink="/dashboard" class="logo">
+      <img src="logo7.png" alt="Logo" />
+      <span>DEVO</span>
+    </a>
+
+  <!-- Settings Dropdown -->
+<div class="dropdown settings-dropdown">
+  <button (click)="toggleSettings()">⚙️</button>
+  <div class="settings-section" *ngIf="showSettings">
+    <p>Account Settings</p>
+    <p>Change Password</p>
+    <p>Update Email / Username</p>
+    <p>Security Settings</p>
+    <p>Privacy (Cookies) Preferences</p>
+    <hr />
+    <p>Account Preferences</p>
+    <p>Language / Region</p>
+    <p>Time Zone</p>
+    <p>Display Options</p>
+  </div>
+</div>
+
+  <!-- Center: Search -->
+  <div class="header-center">
+    <input type="text" placeholder="Search tasks, notes, meetings..." />
+  </div>
+
+  <!-- Right: Icons -->
+  <div class="header-right">
+    <!-- Notifications -->
+    <div class="dropdown">
+      <button (click)="toggleNotifications()">🔔</button>
+      <div class="dropdown-content" *ngIf="showNotifications">
+        <p>Reminder 1</p>
+        <p>System Update</p>
+      </div>
+    </div>
+
+    <!-- Help -->
+    <div class="dropdown">
+      <button (click)="toggleHelp()">❓</button>
+      <div class="dropdown-content" *ngIf="showHelp">
+        <p>Help Articles</p>
+        <p>Support</p>
+        <p>Feedback</p>
+        <p>Keyboard Shortcuts</p>
+      </div>
+    </div>
+
+    <!-- Profile Dropdown -->
+    <div class="dropdown profile-dropdown">
+      <button class="profile-btn" (click)="toggleProfile()">
+        <div class="initials-logo">{{ userInitials }}</div>
+      </button>
+
+      <div class="profile-side-panel" *ngIf="showProfile">
+        <button class="close-btn" (click)="toggleProfile()">×</button>
+        <div class="profile-photo-container">
+          <img [src]="user.photo" alt="Profile Photo" class="profile-photo" />
+          <h4>{{ user.name }}</h4>
+          <p>{{ user.jobTitle }}</p>
+        </div>
+        <div class="profile-details">
+          <p><strong>Department:</strong> {{ user.department }}</p>
+          <p><strong>Reports to:</strong> {{ user.reportsTo }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone:</strong> {{ user.phone }}</p>
+          <p><strong>Organization:</strong> {{ user.organization }}</p>
+          <p><strong>Location:</strong> {{ user.location }}</p>
+        </div>
+        <div class="logout-section">
+          <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

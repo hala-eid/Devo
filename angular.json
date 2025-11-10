@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "employee-tracking-app": {
+    "devo": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -22,14 +22,22 @@
               {
                 "glob": "**/*",
                 "input": "public"
+                
               }
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ]
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -54,12 +62,15 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "employee-tracking-app:build:production"
+              "buildTarget": "devo:build:production"
             },
             "development": {
-              "buildTarget": "employee-tracking-app:build:development"
+              "buildTarget": "devo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,5 +99,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
