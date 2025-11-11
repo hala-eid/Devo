@@ -32,6 +32,9 @@
     "@angular/material": "^20.2.10",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "class-transformer": "^0.5.1",
+    "google-libphonenumber": "^3.2.43",
+    "ngx-intl-tel-input": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

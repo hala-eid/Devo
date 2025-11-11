@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { SocialAuthService, SocialUser, GoogleLoginProvider, FacebookLoginProvider} from '@abacritt/angularx-social-login';
+//import { SocialAuthService, SocialUser, GoogleLoginProvider, FacebookLoginProvider} from '@abacritt/angularx-social-login';
 import { AuthService, User } from '../auth.service';
 import { UserService } from '../user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

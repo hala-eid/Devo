@@ -1,36 +1,32 @@
 
-/* |======================================================
-| NEW: TOP TASKBAR NAVIGATION STYLE
-| This mimics the rounded bar from your reference image.
-|======================================================
-*/
+/*
 .taskbar-nav {
-    /* Positioning it near the top */
+   
     position: absolute;
-    top: 20px; /* Adjust this value to set the height from the very top */
-    width: 75%; /* Width should be wide enough to span the content area */
-    max-width: 1000px; /* Optional: Keep it from stretching too wide on huge screens */
+    top: 20px; 
+    width: 75%; 
+    max-width: 1000px; 
     height: 40px;
-    /* Centering the bar */
+
     left: 50%;
     transform: translateX(-50%);
-    /* Styling the container */
-    background-color: #fffaf0; /* Light off-white background */
-    border: 1px solid #d4c5b1; /* Subtle border */
-    border-radius: 30px; /* Rounded pill shape corners */
+   
+    background-color: #fffaf0; 
+    border: 1px solid #d4c5b1;
+    border-radius: 30px; 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     
-    /* Layout for links */
+
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 0 20px;
-    z-index: 10; /* Make sure it sits above everything */
+    z-index: 10; 
 }
 
 .taskbar-nav a {
-    /* Styling the links inside */
-    color: #5c4b41; /* Dark taupe color */
+   
+    color: #5c4b41; 
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9em;
@@ -40,13 +36,10 @@
 }
 
 .taskbar-nav a:hover {
-    color: #658564; /* Muted green hover color */
+    color: #658564; 
 }
 
-/* |======================================================
-| 3. TOP NAVIGATION (OPTIONAL)
-|======================================================
-*/
+
 .top-nav {
     position: absolute;
     top: 30px;
@@ -58,7 +51,7 @@
 }
 
 .top-nav a {
-    color: #8c6a4e; /* Deep brown link color */
+    color: #8c6a4e; 
     text-decoration: none;
     font-weight: bold;
     font-size: 0.9em;
@@ -78,13 +71,9 @@
 }
 
 
-/* |======================================================
-| 4. REGISTER CONTAINER (THE FORM CARD)
-|======================================================
-*/
+
 .register-container {
-    /* BACKGROUND COLOR FIX: Lighter color for the card to lift it off the body background */
-    background-color: #fffaf0; 
+     background-color: #fffaf0; 
     padding: 30px 40px;
     border-radius: 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -110,10 +99,7 @@ h2 {
 
 }
 
-/* |======================================================
-| 5. FORM ELEMENTS
-|======================================================
-*/
+
 .form-group {
     margin-bottom: 15px;
     text-align: left;
@@ -129,8 +115,7 @@ label {
     letter-spacing: 0.5px;
 }
 
-/* Input Fields */
-input[type="text"],
+/input[type="text"],
 input[type="email"],
 input[type="password"] {
     width: calc(100% - 20px); 
@@ -139,7 +124,7 @@ input[type="password"] {
     border-radius: 5px;
     font-size: 1em;
     color: #5c4b41;
-    background-color: #f8f0e3; /* Slightly off-white for contrast */
+    background-color: #f8f0e3; 
     transition: border-color 0.3s ease;
 }
 
@@ -151,7 +136,7 @@ input[type="password"]:focus {
     box-shadow: 0 0 5px rgba(160, 130, 105, 0.3);
 }
 
-/* Button */
+
 button[type="submit"] {
     background-color: #8c6a4e; 
     color: #f8f0e3; 
@@ -177,36 +162,224 @@ button[type="submit"]:disabled {
     cursor: not-allowed;
 }
 
-/* |======================================================
-| 6. MESSAGES & LINKS
-|======================================================
-*/
+
+
+
+
+/*mariam code */
+
 .error {
-    color: #e74c3c;
-    margin-top: 15px;
-    font-size: 0.9em;
+  color: red;
+  margin-top: 10px;
 }
 
-.success {
-    color: #27ae60; 
-    margin-top: 15px;
-    font-size: 0.9em;
+.register-page {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-p {
-    color: #5c4b41;
-    margin-top: 25px;
-    font-size: 0.95em;
+/* Styling for the entire page/view */
+.register-container {
+  display: flex;
+  height: 100%;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #f5eaec;
+  padding: 0;
 }
 
-p a {
-    color: #8c6a4e; 
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+.left-section-wrapper {
+ 
+  max-width: 100pc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-p a:hover {
-    color: #7a5d46;
-    text-decoration: underline;
+/* Register Card (Left Section) */
+.register-card {
+  width: 400px;
+  max-width: 85%;
+  flex: unset;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 65px 60px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20px;
+  overflow-y: auto;
 }
+
+.register-card h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #7d342c;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.register-card .subtitle {
+  color: #7d342c;
+  margin-bottom: 25px;
+  font-size: 0.9em;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  margin: 0 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* adjust so icons fit */
+  cursor: pointer;
+}
+
+.social-icon.google {
+  background-image: url('/google.jpg');
+}
+.social-icon.apple {
+  background-image: url('/apple.jpg');
+}
+.social-icon.facebook {
+  background-image: url('/facebook.png');
+}
+
+
+/* Input Fields */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: none;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px 18px;
+  background-color: transparent;
+  border: 2px solid #7d342c;
+  border-radius: 25px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 0 0 2px rgba(136, 136, 136, 0.2);
+}
+
+.form-control::placeholder {
+  color: #999;
+}
+
+
+.btn-register {
+  width: 100%;
+  padding: 15px 20px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(to right, #7d342c, #7d342c);
+  box-shadow: 0 4px 6px rgba(140, 59, 51, 0.2);
+  transition: background 0.3s ease;
+  cursor: pointer;
+  height: 50px;
+}
+
+.btn-register:hover {
+  opacity: 0.9;
+}
+
+/* Right Section Image */
+.register-image-section {
+  flex: 1;
+  position: relative;
+  background-color: #fff8f0;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.register-image-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url('/right.png');
+  background-size:auto;
+  background-repeat:repeat;
+  background-position: right;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.register-image-section .logo,
+.register-image-section h1 {
+  z-index: 1;
+  position: relative;
+  font-family: 'Poppins';
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+}
+
+.register-image-section .logo {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #7d342c;
+}
+
+.register-image-section h1 {
+  font-size: 3rem;
+  font-weight: 500;
+  color: #7d342c;
+  max-width: 600px;
+  line-height: 1.2;
+}
+
+/* Password toggle button */
+.toggle-btn {
+  position: absolute;
+  bottom: 52%;
+  left: 380px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #999;
+  font-size: 1.1rem;
+  z-index: 20;
+  outline: none;
+}
+
+.toggle-btn:hover {
+  color: #333;
+}
+.profile-label {
+  display: block;       /* ensures label is above input */
+  margin-bottom: 5px;   /* small spacing */
+  font-weight: 500;     /* makes it visible */
+  color: #333;          /* dark color for visibility */
+}
+
+
+
