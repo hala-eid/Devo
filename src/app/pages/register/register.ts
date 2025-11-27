@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxIntlTelInputModule, SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import {  RouterModule,Router } from '@angular/router';
+import { AuthService } from '../../services/authService';
 @Component({
   selector: 'app-register',
   templateUrl: './register.html',
@@ -11,7 +12,8 @@ import { NgxIntlTelInputModule, SearchCountryField, CountryISO, PhoneNumberForma
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    RouterModule
   ]
 })
 export class Register {
@@ -27,7 +29,12 @@ export class Register {
 
   defaultAvatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAATUlEQVR4Ae3XMQEAAAwCoNm/9HIoQBoaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMB3AkIWAAGPzktAAAAAElFTkSuQmCC';
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+constructor(
+  private fb: FormBuilder,
+  private http: HttpClient,
+  private router: Router ,
+   private authService: AuthService,
+) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -41,7 +48,7 @@ passwordHash: ['', [
 ]],
       phoneNumber: new FormControl({ number: '', countryCode: CountryISO.Jordan }, Validators.required),
       jobTitle: ['', Validators.required],
-      department: ['', Validators.required],
+      departmentId: ['', Validators.required],
       location: ['', Validators.required],
       role: ['', Validators.required],
       profilePhoto: [null],
@@ -69,9 +76,7 @@ passwordHash: ['', [
   
 
   onSubmit() {
-    console.log('Submit clicked');
-    console.log('Form valid?', this.registerForm.valid);
-    console.log(this.registerForm.value);
+    
 
     if (this.registerForm.invalid) return;
 
@@ -87,19 +92,20 @@ passwordHash: ['', [
 
     this.isLoading = true;
 
-    this.http.post('http://localhost:5000/api/Auth/register', payload,{responseType: 'text'})
-      .subscribe({
-        next: (res) => {
-          console.log('Registration response', res);
-          alert('Registered successfully!');
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Registration error', err);
-          alert('Registration failed');
-          this.isLoading = false;
-        }
-      });
+     // ✅ Call the service instead of HttpClient directly
+    this.authService.register(payload).subscribe({
+      next: (res) => {
+        console.log('Registration response', res);
+        alert('Registered successfully!');
+        this.isLoading = false;
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('Registration error', err);
+        alert('Registration failed');
+        this.isLoading = false;
+      }
+    });
   }
 
   get phoneControl(): FormControl {

@@ -26,7 +26,7 @@ namespace DevoBackend.Models.DTOs
 
     public string Role { get; set; }
 
-    public string? Department { get; set; }
+    public string? DepartmentId { get; set; }
 
     public string? ProfilePhoto { get; set; } // optional, base64 or URL
 

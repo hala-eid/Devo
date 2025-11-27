@@ -9,10 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { Register } from './app/pages/register/register';
+import { AuthInterceptor } from './app/services/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 bootstrapApplication(App, {
   providers: [
     provideRouter(routes),
+//    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideHttpClient(),
     provideAnimations(),
     importProvidersFrom(

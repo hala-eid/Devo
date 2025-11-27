@@ -5,7 +5,7 @@ namespace DevoBackend.Models   // <--- THIS was missing
 {
   public class User
   {
-    // public int UserId { get; set; }
+     public int UserId { get; set; }
     public string FullName { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PasswordHash { get; set; } = null!;
@@ -14,7 +14,10 @@ namespace DevoBackend.Models   // <--- THIS was missing
     public string Location { get; set; } = null!;
     public string Role { get; set; } = null!;
     public string ProfilePhoto { get; set; } = null!;
-    public string Department { get; set; } = null!;
+    public string DepartmentId { get; set; } = null!;
+    public string ReportsTo { get; set; } // optional manager/supervisor
+    public string Organization { get; set; } // optional organization/company name
+
 
     // Navigation properties
     public ICollection<Team> CreatedTeams { get; set; } = new List<Team>();

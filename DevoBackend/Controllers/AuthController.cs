@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using DevoBackend.Data;
 using DevoBackend.Models;
+using DevoBackend.Models.DTOs;
 using System.Security.Cryptography;
 using System.Text;
+using DevoBackend.Services;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore; // for FirstOrDefaultAsync
@@ -14,10 +16,12 @@ namespace DevoBackend.Controllers
   public class AuthController : ControllerBase
   {
     private readonly DevoDbContext _context;
+    private readonly JwtService _jwtService; // <-- add this field
 
-    public AuthController(DevoDbContext context)
+    public AuthController(DevoDbContext context, JwtService jwtService)
     {
       _context = context;
+      _jwtService = jwtService; // <-- assign it here
     }
 
     [HttpPost("register")]
@@ -56,7 +60,7 @@ namespace DevoBackend.Controllers
         PhoneNumber = request.PhoneNumber,
         Location = request.Location,
         Role = request.Role,
-        Department = request.Department,
+        DepartmentId = request.DepartmentId,
         ProfilePhoto = request.ProfilePhoto,
         ReportsTo = request.ReportsTo,        // new field
         Organization = request.Organization   // new field
@@ -69,6 +73,39 @@ namespace DevoBackend.Controllers
 
       return new JsonResult(new { message = $"{user.Role} registered successfully!" });
     }
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDto request)
+    {
+      if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.PasswordHash))
+        return BadRequest(new { message = "Email and password are required." });
+
+      // Hash entered password
+      var hashedPassword = HashPassword(request.PasswordHash);
+
+      var user = await _context.Users
+          .FirstOrDefaultAsync(u => u.Email == request.Email && u.PasswordHash == hashedPassword);
+
+      if (user == null)
+        return Unauthorized(new { message = "Invalid email or password." });
+
+      // Generate token
+      var tokenString = _jwtService.GenerateToken(user);
+
+      return Ok(new
+      {
+        success = true,
+        message = "Login successful",
+        token = tokenString,
+        user = new
+        {
+          user.UserId,
+          user.FullName,
+          user.Email,
+          user.Role
+        }
+      });
+    }
+
 
     private string HashPassword(string password)
     {

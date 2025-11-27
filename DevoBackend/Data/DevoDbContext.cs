@@ -26,7 +26,19 @@ namespace DevoBackend.Data
         public DbSet<Note> Notes { get; set; } = null!;
         public DbSet<UserActivity> UserActivities { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+    /*2️⃣ Optional fields
+Fields like:
+Organization
+ReportsTo
+Department
+are only useful if you want to:
+Return them to Angular after login (e.g., show the department in the dashboard).
+Use them in role-based logic (e.g., managers see different things than employees).
+If your Angular login page just needs token + basic user info (like UserId, FullName, Email, Role), you can safely ignore these extra fields for now.*/
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
