@@ -168,6 +168,7 @@ button[type="submit"]:disabled {
 
 /*mariam code */
 
+/*
 .error {
   color: red;
   margin-top: 10px;
@@ -178,37 +179,43 @@ button[type="submit"]:disabled {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* Styling for the entire page/view */
+
 .register-container {
   display: flex;
   height: 100%;
   width: 100vw;
-  overflow: hidden;
+
   background-color: #f5eaec;
   padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto; 
 }
 
 .left-section-wrapper {
- 
-  max-width: 100pc;
-  display: flex;
-  align-items: center;
+ display: flex;
+  flex: 0 0 500px;
+min-height: 100vh;
+  align-items: flex-start;
   justify-content: center;
+ padding-top: 50px; 
+  padding-bottom: 50px;
+
 }
 
-/* Register Card (Left Section) */
+
 .register-card {
   width: 400px;
-  max-width: 85%;
+  
   flex: unset;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 65px 60px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   border-radius: 20px;
-  overflow-y: auto;
+overflow-y: visible;
+max-height: 90vh;
 }
 
 .register-card h2 {
@@ -234,12 +241,12 @@ button[type="submit"]:disabled {
   margin: 0 8px;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain; /* adjust so icons fit */
+  background-size: contain; 
   cursor: pointer;
 }
 
 .social-icon.google {
-  background-image: url('/google.jpg');
+  background-image: url('/Google.jpg');
 }
 .social-icon.apple {
   background-image: url('/apple.jpg');
@@ -249,7 +256,7 @@ button[type="submit"]:disabled {
 }
 
 
-/* Input Fields */
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -300,7 +307,7 @@ button[type="submit"]:disabled {
   opacity: 0.9;
 }
 
-/* Right Section Image */
+
 .register-image-section {
   flex: 1;
   position: relative;
@@ -355,7 +362,7 @@ button[type="submit"]:disabled {
   line-height: 1.2;
 }
 
-/* Password toggle button */
+
 .toggle-btn {
   position: absolute;
   bottom: 52%;
@@ -375,11 +382,45 @@ button[type="submit"]:disabled {
   color: #333;
 }
 .profile-label {
-  display: block;       /* ensures label is above input */
-  margin-bottom: 5px;   /* small spacing */
-  font-weight: 500;     /* makes it visible */
-  color: #333;          /* dark color for visibility */
+  display: block;       
+  margin-bottom: 5px;   
+  font-weight: 500;     
+  color: #333;          
+}
+
+input[type="file"].form-control {
+    height: auto; 
+    padding: 10px 18px; 
+    border: 2px solid #7d342c;
+    background-color: transparent;
 }
 
 
+.social-icons-wrapper { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+
+.form-group {
+    margin-bottom: 15px;
+    position: relative; 
+}
+
+.toggle-btn {
+  
+  bottom: unset;
+  left: unset; 
+  
+  
+  right: 15px; 
+  top: 50%;
+  transform: translateY(-50%); 
+  
+  position: absolute;
+  z-index: 20; 
+}
+*/

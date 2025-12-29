@@ -1,4 +1,4 @@
-.app-header, .app-footer {
+/*.app-header, .app-footer {
   background-color: #2c3e50;
   color: white;
   padding: 15px;
@@ -8,4 +8,43 @@
 .app-content {
   padding: 30px;
   text-align: center;
+}
+*//* Global Reset for shadows on panels */
+.dropdown-content, 
+.notification-panel, 
+.profile-side-panel {
+    box-shadow: none !important;
+    border: 1px solid var(--border-color, #e2e8f0) !important;
+}
+/* Global Variables in app.css */
+:root {
+  --bg-color: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+}
+
+/* Variables for Dark Theme */
+.dark-theme {
+  --bg-color: #121212;
+  --sidebar-bg: #1e1e1e;
+  --text-color: #f1f5f9;
+  --border-color: #334155;
+  --card-bg: #1e1e1e;
+}
+
+/* Apply variables to the main containers */
+body, .layout-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+}
+
+.dashboard-container, .calendar-container {
+  background-color: var(--bg-color);
 }

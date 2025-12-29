@@ -78,6 +78,8 @@
 </div>-->
 
 
+<!---
+
 <body class="register-page">
 <div class="register-container">
 
@@ -107,12 +109,12 @@
   <input [type]="showPassword ? 'text' : 'password'"
          class="form-control"
          placeholder="Password"
-         formControlName="passwordHash"/>
+         formControlName="password"/>
   <button type="button" class="toggle-btn" (click)="toggleShow()" tabindex="-1">
     <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
   </button>
 
-  <!-- Error messages -->
+ 
   <div *ngIf="registerForm.get('passwordHash')?.touched || registerForm.get('passwordHash')?.dirty">
 
     <div *ngIf="registerForm.get('passwordHash')?.errors?.['required']" class="error">
@@ -169,7 +171,7 @@
           </select>
         </div>
 
-        <!-- Reports To -->
+        
 <div class="form-group">
   <label>Reports To <span class="required">*</span></label>
   <input type="text" class="form-control" formControlName="reportsTo" placeholder="Manager/Supervisor">
@@ -180,7 +182,7 @@
   </div>
 </div>
 
-<!-- Organization -->
+
 <div class="form-group">
   <label>Organization</label>
   <input type="text" class="form-control" formControlName="organization" placeholder="Organization">
@@ -222,3 +224,11 @@
   </div>
 </div>
 </body>
+
+-->
+
+
+
+<h1>
+register works
+</h1>

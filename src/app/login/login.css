@@ -11,26 +11,27 @@
 /* Styling for the entire page/view */
 .login-container {
   display: flex; /* Use flex to put children side-by-side */
-  height: 100%; /* Take up the full viewport height */
+  height: 100vh; /* Take up the full viewport height */
   width: 100vw; /* Take up the full viewport width */
   overflow: hidden; /* Hide anything that spills over */
   background-color: #f5eaec; /* Light background for the overall container */
    padding: 0; 
 }
 .left-section-wrapper {
-    /* Set this to the size you want the entire left column to occupy (e.g., 35%) */
-    flex: 0 0 35%; 
+     flex: 0 0 35%; 
     max-width: 65%;
+    height: 100%;
     /* Center the login-card content both horizontally and vertically */
     display: flex;
-    align-items: center;    /* Vertical centering */
+    align-items: stretch;    /* Vertical centering */
     justify-content: center; /* Horizontal centering */
 }
 
 /* 1. Login Card (Left Section) */
 .login-card {
   /* The card takes up roughly 40% of the space, adjust as needed */
-   width: 350px; /* Example fixed width */
+   width: 100%; /* Example fixed width */
+   
     max-width: 85%; /* Ensures it shrinks on small screens */
     flex: unset; /* Important: removes the old sizing rules */
   background-color: rgba(255, 255, 255, 0.9); /* White background for the card */
@@ -66,7 +67,7 @@
 /* Input Fields */
 .form-group {
   margin-bottom: 15px;
-   
+   position: relative;
 }
 
 .form-group label {
@@ -182,38 +183,7 @@ font-size: 1rem;
   line-height: 1.2;
 }
 
-/* Social Login Icons */
-.social-login-icons {
-  display: flex;
-  justify-content: center;
-  margin: 25px 0  10px 0;
-}
 
-.social-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
- margin: 0 8px;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-}
-
-.social-icon.google {
-  background-size: 95%;
-  background-image: url('/Google.jpg');
-}
-
-.social-icon.apple {
-  background-image: url('/apple.jpg');
-   background-size: 130%;
-}
-.social-icon.facebook {
-  background-image: url('/facebook.png');
-   background-size: 210%;
-   /* background-color:rgb(24, 119, 242);*/
-}
 
 /* Forgot/Register Link Styling */
 .forgot-register-link {
@@ -229,21 +199,22 @@ font-size: 1rem;
   text-decoration: none;
   font-weight: 600;
 }
+
 .toggle-btn {
     position: absolute;
-    bottom: 52%;
-    left: 380px; /* Position from the right edge, matching input's internal spacing */
-    transform: translateY(-50%); /* Fine-tune vertical centering */
+    top: 50%;           /* Center vertically */
+    right: 20px;        /* FIXED: Always stays 20px from the right edge of the input */
+    transform: translateY(-50%); 
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
-    color: #999; /* Match placeholder color */
+    color: #999;
     font-size: 1.1rem;
-    transition: color 0.2s;
-    z-index: 20; /* Ensure it's above the input */
-    line-height: 1; /* Fix vertical alignment of the icon */
-    outline: none; /* Remove focus outline */
+    z-index: 20;        /* Keeps it above the input field */
+    display: flex;      /* Ensures the icon inside is centered */
+    align-items: center;
+    outline: none;
 }
 
 .toggle-btn:hover {
@@ -275,4 +246,13 @@ font-size: 1rem;
   font-size: 14px;                   /* Adjust size */
   font-weight: 500;                  /* Optional: boldness */
  color:#7d342c ;                   /* Text color */
+}
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+.success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
 }

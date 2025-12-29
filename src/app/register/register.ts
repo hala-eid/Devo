@@ -78,12 +78,15 @@ export class Register {
   }
 }
 */
+
+
+
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxIntlTelInputModule, SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-
+import { Login } from '../login/login';
 @Component({
   selector: 'app-register',
   templateUrl: './register.html',
@@ -91,11 +94,11 @@ import { NgxIntlTelInputModule, SearchCountryField, CountryISO, PhoneNumberForma
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,Login
   ]
 })
 export class Register {
-
+/*
   registerForm!: FormGroup;
   showPassword = false;
   isLoading = false;
@@ -113,7 +116,7 @@ export class Register {
     this.registerForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-passwordHash: ['', [
+password: ['', [
   Validators.required,
   Validators.minLength(8),  // minimum length you want
   Validators.maxLength(20), // maximum length
@@ -167,7 +170,7 @@ passwordHash: ['', [
 
     this.isLoading = true;
 
-    this.http.post('http://localhost:5000/api/Auth/register', payload,{responseType: 'text'})
+    this.http.post('http://localhost:5211/api/auth/register', payload,{responseType: 'text'})
       .subscribe({
         next: (res) => {
           console.log('Registration response', res);
@@ -184,5 +187,5 @@ passwordHash: ['', [
 
   get phoneControl(): FormControl {
     return this.registerForm.get('phoneNumber') as FormControl;
-  }
+  }*/
 }

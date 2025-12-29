@@ -9,7 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './app/interceptors/auth.interceptor';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-
+import { CookieService } from 'ngx-cookie-service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 bootstrapApplication(App, {
   providers: [
     provideRouter(routes),
@@ -20,7 +21,9 @@ bootstrapApplication(App, {
       FormsModule,
       ReactiveFormsModule,
       HttpClientModule,
-       NgxIntlTelInputModule
+      CookieService,
+      
+      BrowserAnimationsModule
     )
   ]
 }).catch(err => console.error(err));

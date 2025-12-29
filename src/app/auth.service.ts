@@ -1,104 +1,66 @@
-/*import { Injectable ,inject} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable,tap } from 'rxjs';
-
-export interface User {
-  id?: number;
-  email: string;
-  password: string;
-  name?: string;
-}
-
-export interface RegisterRequest {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword?: string;
-}
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  success: boolean;
-  message: string;
-  token?: string;
-  user?: User;
-  email: string;
-  name: string;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-// private http = inject(HttpClient);
-
-private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-  signIn(PROVIDER_ID: string) {
-    throw new Error('Method not implemented.');
-  }
-  private apiUrl = 'http://localhost:5211/api/auth';
-
-  constructor(private http: HttpClient) {
-     this.loadStoredUser();
-  }
-    loadStoredUser() {
-        throw new Error('Method not implemented.');
-    }
-
- 
-  register(user: User): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, user);
-  }
-
-  login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials)
-      .pipe(
-        tap(response => {
-          if (response.success && response.token) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('currentUser', JSON.stringify(response.user));
-          }
-        })
-      );
-  }
-
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-  }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
-  getCurrentUser(): User | null {
-    const userJson = localStorage.getItem('currentUser');
-    return userJson ? JSON.parse(userJson) : null;
-  }
-}*/
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-//import { environment } from '../../environments/environment'; // ✅ add this line
+import { catchError, tap, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
-export interface User {
-  id?: number;
+
+export interface UserProfile {
+  id: number;
+  fullName: string;
   email: string;
-  password: string;
-  name?: string;
+  jobTitle?: string;
+  department?: string;
+  reportTo?: string;
+  phoneNumber?: string;
+  organization?: string;
+  location?: string;
+  profilePhotoUrl?: string;
+    userName?: string; 
+    employeeId: number;
+
 }
+export const TRANSLATIONS: any = {
+  English: {
+    dashboard: 'Dashboard',
+    searchPlaceholder: 'Search tasks, notes...',
+    accountSettings: 'Account Settings',
+    changePassword: 'Change Password',
+    updateEmail: 'Update Email',
+    preferences: 'Preferences',
+    logout: 'Logout',
+    oldPassword: 'Old Password',
+    newPassword: 'New Password',
+    save: 'Save',
+    languageLabel: 'Language'
+  },
+  Arabic: {
+    dashboard: 'لوحة التحكم',
+    searchPlaceholder: 'ابحث عن المهام والملاحظات...',
+    accountSettings: 'إعدادات الحساب',
+    changePassword: 'تغيير كلمة المرور',
+    updateEmail: 'تحديث البريد الإلكتروني',
+    preferences: 'التفضيلات',
+    logout: 'تسجيل الخروج',
+    oldPassword: 'كلمة المرور القديمة',
+    newPassword: 'كلمة المرور الجديدة',
+    save: 'حفظ',
+    languageLabel: 'اللغة'
+  }
+};
+
 
 export interface RegisterRequest {
   fullName: string;
   email: string;
   passwordHash: string;
- // confirmPassword?: string;
+  jobTitle?: string;
+  department?: string;
+  reportTo?: string;
+  phoneNumber?: string;
+  contactDetails?: string;
+  organization?: string;
+  location?: string;
+  profilePhotoUrl?: string;
 }
 
 
@@ -111,26 +73,45 @@ export interface AuthResponse {
   success: boolean;
   message: string;
   token?: string;
-  user?: User;
-  email: string;
-  name: string;
+  user?: UserProfile;
+}
+
+export interface CalendarEvent {
+  notes: string | undefined;
+  id?: number;
+  title: string;
+  start: Date;
+  end?: Date;
+  videoCallLink?: string;    
+}
+export interface Note {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  employeeId?: number; // if you need it to link notes to employees
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  googleLogin(arg0: { idToken: string; email: string; name: string; photoUrl: string; }) {
-    throw new Error('Method not implemented.');
-  }
 
+export class AuthService {
+
+  
   private http = inject(HttpClient);
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+
+  private currentUserSubject = new BehaviorSubject<UserProfile | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  // ✅ dynamically load from environment
-  private apiUrl = `${environment.apiUrl}/auth`;
-
+  private authApiUrl = `${environment.apiUrl}/auth`;
+  private usersApiUrl = `${environment.apiUrl}/users`;
+  private calendarApiUrl = `${environment.apiUrl}/calendar`;
+  private notesApiUrl = `${environment.apiUrl}/notes`;
+  private sidebarVisible = new BehaviorSubject<boolean>(true);
+  sidebarVisible$ = this.sidebarVisible.asObservable();
+  private notificationsSource = new BehaviorSubject<any[]>([]);
+  notifications$ = this.notificationsSource.asObservable();
   constructor() {
     this.loadStoredUser();
   }
@@ -138,15 +119,14 @@ export class AuthService {
   private loadStoredUser(): void {
     const userJson = localStorage.getItem('currentUser');
     if (userJson) {
-      const user: User = JSON.parse(userJson);
+      const user: UserProfile = JSON.parse(userJson);
       this.currentUserSubject.next(user);
     }
   }
 
-  register(userData: RegisterRequest): Observable<any> {
+  register(userData: RegisterRequest): Observable<AuthResponse> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, userData, { headers })
+    return this.http.post<AuthResponse>(`${this.authApiUrl}/register`, userData, { headers })
       .pipe(
         tap(response => {
           if (response.success && response.token && response.user) {
@@ -156,36 +136,18 @@ export class AuthService {
         catchError(error => throwError(() => this.handleError(error)))
       );
   }
-login(credentials: LoginRequest): Observable<AuthResponse> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials, { headers })
-    .pipe(
-      tap(response => {
-        if (response.success && response.token && response.user) {
-          this.setUserAndToken(response);
-        }
-      }),
-      catchError(error => throwError(() => this.handleError(error)))
-    );
-}
 
-
-
-  signIn(provider: string): void {
-    console.log(`Signing in with ${provider}`);
-    switch (provider) {
-      case 'GOOGLE':
-        window.location.href = `${this.apiUrl}/google-login`;
-        break;
-      case 'FACEBOOK':
-        window.location.href = `${this.apiUrl}/facebook-login`;
-        break;
-      case 'APPLE':
-        window.location.href = `${this.apiUrl}/apple-login`;
-        break;
-      default:
-        console.warn(`Provider ${provider} not implemented`);
-    }
+  login(credentials: LoginRequest): Observable<AuthResponse> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<AuthResponse>(`${this.authApiUrl}/login`, credentials, { headers })
+      .pipe(
+        tap(response => {
+          if (response.success && response.token && response.user) {
+            this.setUserAndToken(response);
+          }
+        }),
+        catchError(error => throwError(() => this.handleError(error)))
+      );
   }
 
   logout(): void {
@@ -198,36 +160,32 @@ login(credentials: LoginRequest): Observable<AuthResponse> {
     return !!localStorage.getItem('token') && !!this.currentUserSubject.value;
   }
 
-  getCurrentUser(): User | null {
-    return this.currentUserSubject.value;
-  }
+
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  checkEmailExists(email: string): Observable<boolean> {
-    return this.http.get<{ exists: boolean }>(`${this.apiUrl}/check-email?email=${email}`)
+  getCurrentUser(): UserProfile | null {
+    return this.currentUserSubject.value;
+  }
+
+  getProfile(): Observable<UserProfile> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<UserProfile>(`${this.usersApiUrl}/profile`, { headers })
       .pipe(
-        map(response => response.exists),
+        tap(user => {
+          if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+          }
+        }),
         catchError(error => throwError(() => this.handleError(error)))
       );
-  }
-
-  requestPasswordReset(email: string): Observable<{ success: boolean; message: string }> {
-    return this.http.post<{ success: boolean; message: string }>(
-      `${this.apiUrl}/forgot-password`, { email }
-    ).pipe(
-      catchError(error => throwError(() => this.handleError(error)))
-    );
-  }
-
-  verifyToken(token: string): Observable<{ success: boolean; message: string }> {
-    return this.http.get<{ success: boolean; message: string }>(
-      `${this.apiUrl}/verify-token?token=${token}`
-    ).pipe(
-      catchError(error => throwError(() => this.handleError(error)))
-    );
   }
 
   private setUserAndToken(response: AuthResponse): void {
@@ -258,4 +216,67 @@ login(credentials: LoginRequest): Observable<AuthResponse> {
       }
     }
   }
+ getEvents(): Observable<CalendarEvent[]> {
+    return this.http.get<CalendarEvent[]>(this.calendarApiUrl);
+  }
+
+  addEvent(event: CalendarEvent): Observable<CalendarEvent> {
+    return this.http.post<CalendarEvent>(this.calendarApiUrl, event);
+  }
+
+  deleteEvent(id: number): Observable<any> {
+    return this.http.delete(`${this.calendarApiUrl}/${id}`);
+  }
+
+  getNotes(): Observable<Note[]> {
+  return this.http.get<Note[]>(`${this.notesApiUrl}`);
+}
+
+addNote(noteData: any) {
+  return this.http.post(`${this.notesApiUrl}`, noteData);
+}
+
+updateNote(noteData: any) {
+  return this.http.put(`${this.notesApiUrl}/${noteData.id}`, noteData);
+}
+
+deleteNote(noteId: number) {
+  return this.http.delete(`${this.notesApiUrl}/${noteId}`);
+}
+
+toggleSidebar() {
+    this.sidebarVisible.next(!this.sidebarVisible.value);
+  }
+
+  addNotification(icon: string, message: string) {
+    const newNoti = {
+      id: Date.now(),
+      icon: icon,
+      message: message,
+      time: new Date(),
+      isRead: false
+    };
+    
+    // Add new notification to the beginning of the array
+    const updatedNotis = [newNoti, ...this.notificationsSource.value];
+    this.notificationsSource.next(updatedNotis);
+  }
+
+  clearNotifications() {
+    this.notificationsSource.next([]);
+  }
+  // 1. Helper to get the number of unread notifications
+getUnreadCount(): number {
+  return this.notificationsSource.value.filter(n => !n.isRead).length;
+}
+
+// 2. The missing function to mark them as read
+markAllAsRead(): void {
+  const currentNotis = this.notificationsSource.value.map(n => ({
+    ...n,
+    isRead: true
+  }));
+  this.notificationsSource.next(currentNotis);
+}
+  
 }

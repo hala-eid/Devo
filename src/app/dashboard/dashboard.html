@@ -1,5 +1,31 @@
-
 <app-header></app-header>
-<p>dashboard works!</p>
 
+<div class="layout-container" [class.sidebar-hidden]="!isSidebarVisible">
 
+  <aside class="sidebar">
+    <h3>Master Menu</h3>
+    <ul>
+      <li>Overview</li>
+      <li>Tasks</li>
+      <li>Notes</li>
+      <li>Meetings</li>
+      <li>Settings</li>
+    </ul>
+  </aside>
+
+  <main class="dashboard-content">
+    <div class="dashboard-container">
+      <h2 class="dashboard-title">Dashboard</h2>
+
+      <div class="dashboard-buttons">
+        <button (click)="goTo('calendar')">📅 Calendar</button>
+        <button (click)="goTo('notes')">📝 Notes</button>
+        <button (click)="goTo('team-dashboard')">📌 TeamDashboard</button>
+        <button (click)="goTo('profile')">👤 Profile</button>
+      </div>
+
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+</div>

@@ -1,54 +1,68 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface User {
+  id?: number;
+  fullName?: string;
   email: string;
-  password: string;
-  name?: string;
+  password?: string; 
+  jobTitle?: string;
+  department?: string;
+  reportTo?: string;
+  phoneNumber?: string;
+  organization?: string;
+  location?: string;
+  profilePhotoUrl?: string;
+}
+export interface UserProfile {
+   employeeId: number;
+
+}
+export interface LoginResponse {
+  success: boolean;
+  message: string;
+  token: string;
+  user: User;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private readonly USERS_KEY = 'app_users';
 
-  constructor() {}
+  private apiUrl = 'http://localhost:5121/api'; // CHANGE if your backend port is different
 
-  // Get all users from localStorage
-  getUsers(): User[] {
-    const usersJson = localStorage.getItem(this.USERS_KEY);
-    return usersJson ? JSON.parse(usersJson) : [];
+  constructor(private http: HttpClient) { }
+
+  // ===============================
+  // REGISTER (REAL DATABASE)
+  // ===============================
+  register(user: User): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/register`, user);
   }
 
-  // Save users to localStorage
-  private saveUsers(users: User[]): void {
-    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
+  // ===============================
+  // LOGIN (REAL DATABASE)
+  // ===============================
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, {
+      email,
+      password
+    });
   }
 
-  // Register a new user
-  register(user: User): boolean {
-    const users = this.getUsers();
-    
-    // Check if user already exists
-    if (users.find(u => u.email === user.email)) {
-      return false; // User already exists
-    }
-    
-    users.push(user);
-    this.saveUsers(users);
-    return true;
-  }
+  // ===============================
+  // GET PROFILE (DROPDOWN MENU)
+  // ===============================
+  /*getProfile(): Observable<User> {
+    const token = localStorage.getItem("token");
 
-  // Login user
-  login(email: string, password: string): User | null {
-    const users = this.getUsers();
-    const user = users.find(u => u.email === email && u.password === password);
-    return user || null;
-  }
+    const headers = new HttpHeaders({
+      "Authorization": `Bearer ${token}`
+    });
 
-  // Check if user exists
-  userExists(email: string): boolean {
-    const users = this.getUsers();
-    return users.some(u => u.email === email);
-  }
+    return this.http.get<User>(`${this.apiUrl}/users/profile`, { headers });
+  }*/
+
 }

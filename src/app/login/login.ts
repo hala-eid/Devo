@@ -3,12 +3,11 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-//import { SocialAuthService, SocialUser, GoogleLoginProvider, FacebookLoginProvider} from '@abacritt/angularx-social-login';
-import { AuthService, User } from '../auth.service';
+import { AuthService, UserProfile } from '../auth.service';
 import { UserService } from '../user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-//import { RouterModule } from '@angular/router';
+
  export interface LoginRequest {
   email: string;
   passwordHash: string;
@@ -32,8 +31,8 @@ export class Login implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private authService = inject(AuthService);
-  // private socialAuthService = inject(SocialAuthService);
-
+  private snackBar = inject(MatSnackBar);
+ 
   // --- State Variables ---
   title = 'Login Page';
   email = '';
@@ -46,8 +45,7 @@ export class Login implements OnInit, OnDestroy {
   showPassword = false;
    rememberMe = false;
    
-  // Optional social login
-  // user: SocialUser | null = null;
+
   private authStateSubscription!: Subscription;
 
   // --- Lifecycle Hooks ---
@@ -55,18 +53,7 @@ export class Login implements OnInit, OnDestroy {
     this.userId = this.route.snapshot.paramMap.get('userId') || '';
     console.log('User ID from URL:', this.userId);
 
-    // Uncomment if using Google/Facebook login
-    /*
-    this.authStateSubscription = this.socialAuthService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
-
-      if (this.loggedIn) {
-        console.log('✅ Social login success:', user);
-        this.router.navigate(['/dashboard']);
-      }
-    });
-    */
+    
   }
 
   ngOnDestroy() {
@@ -121,61 +108,44 @@ export class Login implements OnInit, OnDestroy {
 
 // --- Backend Login ---
 private loginWithBackend(): void {
-  const credentials: LoginRequest = {
+  const credentials = {
     email: this.email,
-    passwordHash: this.password
+    passwordHash: this.password  
   };
 
-  console.log('📤 Sending login request:', credentials);
+
 
   this.authService.login(credentials).subscribe({
     next: (response) => {
       this.isLoading = false;
-      console.log('✅ Login success:', response);
+
 
       if (response.success && response.token) {
         localStorage.setItem('token', response.token);
-        alert('Login successful!');
+        
+        // Success Popup
+        this.snackBar.open('Welcome back!', 'Close', { duration: 3000, panelClass: ['success-snackbar'] });
+        
         this.router.navigate(['/dashboard']); 
-      
-      } else {
-        this.errorMessage = response.message || 'Invalid credentials.';
+
       }
     },
     error: (error) => {
       this.isLoading = false;
-      console.error('❌ Login error:', error);
-      if (error?.status === 401) {
-        this.errorMessage = 'Invalid email or password.';
-      } else {
-        this.errorMessage = 'Login failed. Please try again.';
-      }
+      // Determine the message
+      this.errorMessage = error?.status === 401 
+        ? 'Invalid email or password.' 
+        : 'Login failed. Please try again.';
+
+      // Error Popup
+      this.snackBar.open(this.errorMessage, 'Close', {
+        duration: 5000,
+        verticalPosition: 'top', 
+        panelClass: ['error-snackbar'] 
+      });
     }
   });
 }
-
- 
-  // --- Social Logins (placeholders for now) ---
-  signInWithGoogle(): void {
-    console.log('Google sign-in clicked');
-    this.isGoogleLoading = true;
-    // Uncomment when integrated:
-    /*
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).catch(err => {
-      console.error('Google sign-in failed:', err);
-      this.isGoogleLoading = false;
-    });
-    */
-  }
-
-  signInWithFacebook(): void {
-    console.log('Facebook sign-in clicked');
-    // this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
-
-  signInWithApple(): void {
-    console.log('Apple sign-in clicked');
-  }
 
   // --- Navigation ---
   goToRegister(): void {
@@ -190,4 +160,23 @@ private loginWithBackend(): void {
   toggleShow() {
   this.showPassword = !this.showPassword;
 }
+
+login() {
+  const credentials = {
+    email: this.email,
+    passwordHash: this.password
+  };
+
+  this.authService.login(credentials).subscribe({
+    next: (response) => {
+      if (response.success) {
+        this.router.navigate(['/dashboard']);
+      }
+    },
+    error: (err) => {
+      this.errorMessage = err;
+    }
+  });
+}
+
 }

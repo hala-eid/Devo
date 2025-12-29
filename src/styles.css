@@ -1,73 +1,529 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
-/*login*/
+/* Global reset and font */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
- /*border: 5px solid/* #7d342c*/
- /*	#8d988d;*/
-
- }
-
+/* Ensure html and body take full height */
 html, body {
   height: 100%; 
   width: 100%;  
   margin: 0;    
   padding: 0;  
   overflow: auto;
-  box-sizing: border-box;
- 
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overflow-y: scroll;
 }
 
-@import "intl-tel-input/build/css/intlTelInput.css";
+/* Light mode (default) */
+body.light-theme {
+  background-color: white;
+  color: black;
+}
 
-.iti {
+/* Dark mode */
+body.dark-theme {
+  background-color: #121212;
+  color: white;
+}
+
+/* Profile panel and dropdowns inherit theme colors */
+.profile-side-panel,
+.dropdown-content,
+.settings-content {
+  color: inherit;
+  background-color: inherit;
+}
+
+/* Dark mode overrides for everything inside profile panel */
+body.dark-theme .profile-side-panel,
+body.dark-theme .profile-side-panel * {
+  color: white !important;
+  background-color: #1e1e1e !important;
+  border-color: #555;
+}
+
+
+/* LIGHT THEME (Default) */
+:root {
+  --bg-color: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-workspace: #f8fafc;
+  --text-color: #1e293b;
+  --header-bg: #ffffff;
+  --border-color: #e2e8f0;
+}
+
+/* DARK THEME */
+.dark-theme {
+  --bg-color: #1e1e1e;       /* Dark background */
+  --bg-sidebar: #2d2d2d;     /* Slightly lighter sidebar */
+  --bg-workspace: #121212;   /* Deep dark workspace */
+  --text-color: #f1f5f9;     /* White/Grey text */
+  --header-bg: #1a1a1a;      /* Dark header */
+  --border-color: #404040;   /* Darker borders */
+}
+/* Global Variables in app.css */
+:root {
+  --bg-color: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+}
+
+/* Variables for Dark Theme */
+.dark-theme {
+  --bg-color: #121212;
+  --sidebar-bg: #1e1e1e;
+  --text-color: #f1f5f9;
+  --border-color: #334155;
+  --card-bg: #1e1e1e;
+}
+
+/* Apply variables to the main containers */
+body, .layout-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+}
+
+.dashboard-container, .calendar-container {
+  background-color: var(--bg-color);
+}
+/* Find the section where you used 'inherit' and replace it with this: */
+.dropdown-content,
+.settings-content,
+.dropdown1 .dropdown-content,
+.notification-panel {
+  /* Use your defined variables for solid colors */
+  background-color: var(--bg-color) !important; 
+  color: var(--text-color) !important;
+  
+  /* Positioning and Visibility */
+  display: block; 
+  position: absolute;
+  z-index: 9999 !important; /* Forces them to stay on top of the dashboard */
+  
+  /* Visuals */
+  border: 1px solid var(--border-color) !important;
+  box-shadow: none !important;
+  padding: 12px;
+  min-width: 200px;
+}
+
+/* Ensure list items inside dropdowns are visible */
+.dropdown-item, .noti-item, .settings-list p {
+  color: var(--text-color) !important;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: var(--border-color) !important;
+}
+/* LIGHT THEME (Default) */
+:root {
+  --bg-color: #ffffff;
+  --sidebar-bg: #ffffff;
+  --workspace-bg: #f8fafc;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+}
+
+/* DARK THEME */
+.dark-theme {
+  --bg-color: #1a1a1a;       /* Deep dark for cards */
+  --sidebar-bg: #121212;     /* Darker Sidebar */
+  --workspace-bg: #0d0d0d;   /* The area behind everything */
+  --text-color: #f1f5f9;     /* Near-white text */
+  --border-color: #333333;   /* Subtle dark borders */
+}
+
+/* Apply variables to ALL layouts */
+body, .layout-container, .dashboard-content {
+  background-color: var(--workspace-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text-color) !important;
+  border-right: 1px solid var(--border-color) !important;
+}
+
+/* This fixes the white areas in your Calendar/Notes screenshots */
+.dashboard-container, .section, .calendar-container, .notes-container {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+/* Kill all shadows globally */
+.dropdown-content, 
+.notification-panel, 
+.profile-side-panel {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border: 1px solid var(--border-color) !important;
+}
+/* Fix Calendar Container for Dark Mode */
+.calendar-container {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Force the angular-calendar library to use theme colors */
+.dark-theme .cal-month-view,
+.dark-theme .cal-week-view,
+.dark-theme .cal-day-view,
+.dark-theme .cal-header {
+  background-color: #1e1e1e !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+.dark-theme .cal-cell-row:hover {
+  background-color: #2d2d2d !important;
+}
+
+.dark-theme .cal-month-view .cal-day-cell.cal-today {
+  background-color: #334155 !important;
+}
+
+/* Fix Inputs inside Add Event Panel */
+.add-event-panel input, 
+.add-event-panel textarea {
+  background-color: var(--bg-workspace) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 8px;
+  border-radius: 4px;
   width: 100%;
+  margin-bottom: 10px;
+}
+/* Apply black to the sidebar and background */
+.dark-theme .sidebar, 
+.dark-theme .teams-list,
+.dark-theme .dashboard-content {
+  background-color: #000000 !important;
+  color: white !important;
 }
 
-.iti input {
-  height: 50px;
-  border-radius: 25px;
-  border: 2px solid #7b2629;
-  padding-left: 55px !important;
-  font-size: 15px;
+.dark-theme .sidebar li:hover {
+  background-color: #1a1a1a !important;
+}
+/* Force the entire calendar grid to be black in Dark Mode */
+.dark-theme .cal-month-view,
+.dark-theme .cal-week-view,
+.dark-theme .cal-day-view,
+.dark-theme .cal-time-events,
+.dark-theme .cal-day-columns {
+  background-color: #000000 !important;
 }
 
-.iti__country-list {
-  max-height: 200px;
-  overflow-y: auto;
+/* Fix the white 'zebra' stripes in the week/day view */
+.dark-theme .cal-day-columns .cal-hour-odd,
+.dark-theme .cal-day-columns .cal-hour-even,
+.dark-theme .cal-hour-segment {
+  background-color: #000000 !important;
+  border-bottom: 1px solid #333 !important; /* Subtle grid lines */
 }
 
-/*regiseter hala */
-/*
-body {
-    margin: 0;
-    font-family: 'Georgia', serif; 
-    background-color: #f8f0e3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden; 
-    position: relative;
-    
+/* Fix the time labels on the left */
+.dark-theme .cal-time {
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
-body::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; 
-    background-image: url('/green2.png'); 
-    background-size: cover; 
-    background-position: center bottom; 
-    background-repeat: no-repeat;
-    z-index: -1; 
+
+/* Fix the header (Days of the week) */
+.dark-theme .cal-header,
+.dark-theme .cal-day-headers {
+  background-color: #000000 !important;
+  border-bottom: 2px solid #444 !important;
 }
-html, body {
-    height: 100%; 
-    width: 100%; 
-    margin: 0; 
-    padding: 0; 
-    overflow: hidden; 
-    box-sizing: border-box;
-}*/
+
+/* FORCE TOTAL BLACK ON EVERYTHING */
+body.dark-theme, 
+body.dark-theme .team-workspace,
+body.dark-theme .chat-panel,
+body.dark-theme .notes-container,
+body.dark-theme .calendar-container,
+body.dark-theme .dashboard-container {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* FIX CALENDAR WHITE STRIPES (image_6aeece.png) */
+body.dark-theme .cal-month-view,
+body.dark-theme .cal-week-view,
+body.dark-theme .cal-day-view,
+body.dark-theme .cal-hour-segment,
+body.dark-theme .cal-hour,
+body.dark-theme .cal-day-column,
+body.dark-theme .cal-time,
+body.dark-theme .cal-all-day-events {
+  background-color: #000000 !important;
+  background: #000000 !important; /* Removes default gradients */
+  border-color: #222222 !important; /* Subtle dark grid */
+}
+
+/* FIX TEAM DASHBOARD WHITE HEADERS (image_6bb963.jpg) */
+body.dark-theme .chat-header,
+body.dark-theme .workspace-header {
+  background-color: #000000 !important;
+  color: white !important;
+  border-bottom: 1px solid #222 !important;
+}
+
+/* FIX INPUTS AND DROPDOWNS */
+body.dark-theme input, 
+body.dark-theme textarea, 
+body.dark-theme select {
+  background-color: #111111 !important;
+  color: white !important;
+  border: 1px solid #444 !important;
+}
+/* Center the main content area */
+body.dark-theme .team-workspace,
+body.dark-theme .notes-container,
+body.dark-theme .calendar-container {
+  max-width: 1200px;
+  margin: 0 auto !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center the specific Note Form */
+body.dark-theme .note-form,
+body.dark-theme .add-event-panel {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto !important;
+  background-color: #0a0a0a !important;
+  padding: 25px;
+  border-radius: 12px;
+}
+/* FORCE CHAT INPUT AREA TO BLACK */
+body.dark-theme .chat-input-container {
+  background-color: #000000 !important;
+  border-top: 1px solid #222 !important;
+  padding: 15px;
+}
+
+/* THE INPUT BOX ITSELF */
+body.dark-theme .chat-input {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* THE SEND BUTTON */
+body.dark-theme .btn-send {
+  background-color: #7b423c !important; /* Your brown color */
+  color: white !important;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+/* Search backdrop fix */
+body.dark-theme .search-backdrop {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Modal Overlay fix */
+body.dark-theme .modal-overlay,
+body.dark-theme .feedback-overlay {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+/* =========================
+   TOTAL BLACK HEADER
+========================= */
+
+/* Main Header Bar */
+body.dark-theme .header {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid #1a1a1a !important;
+}
+
+/* Sidebar Toggle & Logo Text */
+body.dark-theme .sidebar-toggle,
+body.dark-theme .logo span {
+  color: #ffffff !important;
+}
+
+/* Search Wrapper & Input */
+body.dark-theme .header-center .search-wrapper input {
+  background-color: #0d0d0d !important;
+  color: #ffffff !important;
+  border: 1px solid #333 !important;
+}
+
+/* Search Results Dropdown */
+body.dark-theme .search-results {
+  background-color: #000000 !important;
+  border: 1px solid #333 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important;
+}
+
+body.dark-theme .result-item:hover {
+  background-color: #1a1a1a !important;
+}
+
+/* Icons (SVG) color fix */
+body.dark-theme .header-right button svg {
+  stroke: #ffffff !important;
+}
+
+/* =========================
+   DROPDOWNS & PANELS
+========================= */
+
+/* Notifications, Help, and Settings Content */
+body.dark-theme .dropdown-content,
+body.dark-theme .notification-panel,
+body.dark-theme .settings-content {
+  background-color: #000000 !important;
+  border: 1px solid #222 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Settings List (Left Side Menu) */
+body.dark-theme .settings-list {
+  border-right: 1px solid #222 !important;
+}
+
+body.dark-theme .settings-list p:hover {
+  background-color: #111111 !important;
+}
+
+body.dark-theme .settings-list p.active {
+  color: #c5887d !important; /* Your brown accent */
+  background-color: #0d0d0d !important;
+}
+
+/* Profile Side Panel */
+body.dark-theme .profile-side-panel {
+  background-color: #000000 !important;
+  border-left: 1px solid #222 !important;
+  color: #ffffff !important;
+}
+
+/* Form Elements inside Settings */
+body.dark-theme .settings-details input,
+body.dark-theme .settings-details select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+
+/* Modals & Overlays (Help, Feedback, Shortcuts) */
+body.dark-theme .help-article-card,
+body.dark-theme .feedback-card,
+body.dark-theme .shortcut-card {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #333 !important;
+}
+
+/* Keyboard shortcuts <kbd> tag */
+body.dark-theme kbd {
+  background-color: #222 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+/* =========================
+   SETTINGS TOTAL BLACK FIX
+   ========================= */
+
+/* Fix the white sidebar in the settings dropdown */
+body.dark-theme .settings-list {
+  background-color: #000000 !important;
+  border-right: 1px solid #222 !important;
+  padding: 10px 0;
+}
+
+/* Ensure all menu items are visible */
+body.dark-theme .settings-list p {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  padding: 12px 20px;
+  margin: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Hover effect for menu items */
+body.dark-theme .settings-list p:hover {
+  background-color: #1a1a1a !important;
+}
+
+/* Active menu item (Matching your brown theme) */
+body.dark-theme .settings-list p.active {
+  background-color: #111111 !important;
+  color: #c5887d !important; /* Soft brown for active text */
+  border-left: 3px solid #7b423c;
+}
+
+/* Fix the right side details panel */
+body.dark-theme .settings-details {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  padding: 20px;
+}
+/* Ensure the entire settings dropdown container is black */
+body.dark-theme .dropdown-content.settings-content {
+  background-color: #000000 !important;
+  border: 1px solid #333 !important;
+  display: flex; /* Keeps the sidebar and details side-by-side */
+  padding: 0;
+  overflow: hidden;
+}
+/* Force calendar grid segments to stay black */
+body.dark-theme .cal-hour-segment,
+body.dark-theme .cal-day-column,
+body.dark-theme .cal-hour {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+/* =========================
+   PRIVACY & COOKIES DARK FIX
+========================= */
+
+/* Fix the white card background in Privacy settings */
+body.dark-theme .privacy-settings .toggle-row,
+body.dark-theme .privacy-settings .cookie-card, /* if you used this class */
+body.dark-theme .privacy-settings div[style*="background-color: white"] {
+  background-color: #0d0d0d !important; /* Slightly raised black */
+  border: 1px solid #333 !important;
+  color: #ffffff !important;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* Ensure the text inside the cookie card is visible */
+body.dark-theme .privacy-settings .toggle-text strong,
+body.dark-theme .privacy-settings .toggle-text span {
+  color: #ffffff !important;
+}
+
+/* Fix the description text color if it's currently blue/dark */
+body.dark-theme .privacy-settings .description {
+  color: #aaaaaa !important;
+}
