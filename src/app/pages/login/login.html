@@ -1,0 +1,83 @@
+<body class="login-page">
+<div class="login-container">
+  
+  <div class="left-section-wrapper">
+    
+    <div class="login-card">
+      <h2>Welcome Back!</h2>
+      <p class="subtitle">Please login to your account.</p>
+<div class="alert-error" *ngIf="errorMessage">
+    <i class="fa fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label> 
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            #emailInput="ngModel"
+            required
+            email
+            class="form-control"
+            placeholder="Email"
+            [class.error]="emailInput.invalid && emailInput.touched"
+          />
+          <small class="text-danger" *ngIf="emailInput.invalid && emailInput.touched">
+        Please enter a valid email address.
+      </small>
+        </div>
+
+
+        <div class="form-group">
+          <label for="password">Password</label> 
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            #passwordInput="ngModel"
+            required
+            minlength="6"
+            class="form-control"
+            placeholder="Password"
+            [class.error]="passwordInput.invalid && passwordInput.touched"
+          />
+          <button type="button" class="password-toggle" (click)="toggleShow()" aria-label="Toggle password visibility">
+       
+          </button>
+</div>
+        
+         <small class="text-danger" *ngIf="passwordInput.invalid && passwordInput.touched">
+        Password must be at least 6 characters.
+      </small>
+    
+        <button
+          type="submit"
+          class="btn-sign-in"
+          [disabled]="
+            isLoading || !email || !password || password.length < 6 || !email.includes('@')
+          "
+        >
+          Login
+        </button>
+
+       
+
+        <div class="forgot-register-link">
+          <p>
+            don't have an account?
+            <a routerLink="/register" class="btn-link">Sign up</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+  </div> 
+  <div class="login-image-section">
+    <div class="logo">DEVO</div>
+    <h1>Track Progress. Measure Growth. Succeed.</h1>
+  </div>
+</div>
+</body>

@@ -1,0 +1,98 @@
+<div class="dashboard-wrapper" [class.sidebar-hidden]="!sidebarOpen">
+  
+  <aside class="sidebar">
+   
+    <ul>
+      <li id="FU"><a routerLink="/dashboard">🏠 For You</a></li>
+      <li>
+        <button (click)="toggleSubmenu('recent')">🕒 Recent</button>
+        <ul class="submenu" [class.open]="openSubmenu === 'recent'">
+          <li *ngFor="let item of recentItems">{{ item }}</li>
+        </ul>
+      </li>
+      <li>
+        <button (click)="toggleSubmenu('reminder')">🔔 Reminder</button>
+        <ul class="submenu" [class.open]="openSubmenu === 'reminder'">
+          <li>{{ reminderMessage }}</li>
+        </ul>
+      </li>
+        <li>
+  <button (click)="toggleSubmenu('focusRule')">⏱️ Focus Timer Tip</button>
+  <ul class="submenu" [class.open]="openSubmenu === 'focusRule'">
+    <li class="focus-tip">
+      <div class="focus-emoji">🎯</div>
+      <div class="focus-text">
+        <strong>Work: 25 min</strong> / <strong>Rest: 5 min</strong><br>
+        Use your Focus Timer to stay productive!
+      </div>
+    </li>
+  </ul>
+</li>
+
+      <li>
+        <button (click)="openContact()">📞 Contact Us</button>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="dashboard-content">
+    <div class="dashboard-inner">
+      
+      <div class="fixed-top-section">
+        <div class="dashboard-header">
+          <app-header></app-header>
+        </div>
+
+        <section class="dashboard-widgets">
+          <app-mini-timer></app-mini-timer>
+          <app-motivational-quote></app-motivational-quote>
+          <app-tiny-game></app-tiny-game>
+        </section>
+
+        <nav class="dashboard-tabs">
+           <a class="tab-item" routerLink="my-list" routerLinkActive="active">My List</a>
+           <a class="tab-item" routerLink="tasks" routerLinkActive="active">Tasks</a>
+           <a class="tab-item" routerLink="notes" routerLinkActive="active">Notes</a>
+           <a class="tab-item" routerLink="calendar" routerLinkActive="active">Calendar</a>
+           <a class="tab-item" routerLink="team-dashboard" routerLinkActive="active">Teams</a>
+        </nav>
+      </div>
+
+      <main class="dashboard-main">
+        <router-outlet></router-outlet>
+         </main>
+
+    </div>
+
+    
+  </div>
+</div>
+
+<div class="contact-modal" *ngIf="contactOpen">
+  <div class="modal-content">
+    <button class="close-btn" (click)="closeContact()">✖</button>
+
+    <div *ngIf="!submitted; else successTemplate">
+      <h2>Contact us</h2>
+      <form #contactForm="ngForm" (ngSubmit)="sendContact(contactForm.value)">
+        <div class="row">
+          <input type="text" name="name" ngModel placeholder="Your Name" required />
+          <input type="email" name="email" ngModel placeholder="Your Email" required />
+        </div>
+        <textarea name="message" ngModel placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <ng-template #successTemplate>
+      <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h2>Thank You!</h2>
+        <p>{{ backendMessage }}</p>
+        <button class="done-btn" (click)="closeContact()">Close</button>
+      </div>
+    </ng-template>
+
+  </div>
+</div>
+  

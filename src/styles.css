@@ -1,0 +1,1051 @@
+
+
+@import "intl-tel-input/build/css/intlTelInput.css";
+
+.iti {
+  width: 100%;
+}
+
+.iti input {
+  height: 50px;
+  border-radius: 25px;
+  border: 2px solid #7b2629;
+  padding-left: 55px !important;
+  font-size: 15px;
+}
+
+.iti__country-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+/* Global reset and font */
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+ overflow: hidden;
+}
+
+html, body {
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
+  margin: 0;
+}
+
+/* Light mode (default) */
+body.light-theme {
+  background-color: white;
+  color: black;
+}
+
+/* Dark mode */
+body.dark-theme {
+  background-color: #121212;
+  color: white;
+}
+
+
+/* Dark mode overrides for everything inside profile panel */
+body.dark-theme .profile-side-panel,
+body.dark-theme .profile-side-panel * {
+  color: white !important;
+  background-color: #1e1e1e !important;
+  border-color: #555;
+}
+
+
+/* LIGHT THEME (Restored) */
+
+
+/* DARK THEME */
+.dark-theme {
+  --bg-color: #1e1e1e;       /* Dark background */
+  --bg-sidebar: #2d2d2d;     /* Slightly lighter sidebar */
+  --bg-workspace: #121212;   /* Deep dark workspace */
+  --text-color: #f1f5f9;     /* White/Grey text */
+  --header-bg: #1a1a1a;      /* Dark header */
+  --border-color: #404040;   /* Darker borders */
+}
+/* Global Variables in app.css */
+:root {
+  --bg-color: #f8fafc;
+  --sidebar-bg: #ffffff;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+  --card-bg: #ffffff;
+}
+
+/* Variables for Dark Theme */
+.dark-theme {
+  --bg-color: #121212;
+  --sidebar-bg: #1e1e1e;
+  --text-color: #f1f5f9;
+  --border-color: #334155;
+  --card-bg: #1e1e1e;
+}
+
+/* Apply variables to the main containers */
+body, .layout-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+}
+
+.dashboard-container, .calendar-container {
+  background-color: var(--bg-color);
+}
+/* Find the section where you used 'inherit' and replace it with this: */
+.dropdown-content,
+.settings-content,
+.dropdown1 .dropdown-content,
+.notification-panel {
+  /* Use your defined variables for solid colors */
+  background-color: var(--bg-color) !important; 
+  color: var(--text-color) !important;
+  
+  /* Positioning and Visibility */
+  display: block; 
+  position: absolute;
+  z-index: 9999 !important; /* Forces them to stay on top of the dashboard */
+  
+  /* Visuals */
+  border: 1px solid var(--border-color) !important;
+  box-shadow: none !important;
+  padding: 12px;
+  min-width: 200px;
+}
+
+/* Ensure list items inside dropdowns are visible */
+.dropdown-item, .noti-item, .settings-list p {
+  color: var(--text-color) !important;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: var(--border-color) !important;
+}
+/* LIGHT THEME (Default) */
+:root {
+  --bg-color: #ffffff;
+  --sidebar-bg: #ffffff;
+  --workspace-bg: #f8fafc;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+}
+
+/* DARK THEME */
+.dark-theme {
+  --bg-color: #1a1a1a;       /* Deep dark for cards */
+  --sidebar-bg: #121212;     /* Darker Sidebar */
+  --workspace-bg: #0d0d0d;   /* The area behind everything */
+  --text-color: #f1f5f9;     /* Near-white text */
+  --border-color: #333333;   /* Subtle dark borders */
+}
+
+/* Apply variables to ALL layouts */
+body, .layout-container, .dashboard-content {
+  background-color: var(--workspace-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text-color) !important;
+  border-right: 1px solid var(--border-color) !important;
+}
+
+/* This fixes the white areas in your Calendar/Notes screenshots */
+.dashboard-container, .section, .calendar-container, .notes-container {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+/* Kill all shadows globally */
+.dropdown-content, 
+.notification-panel, 
+.profile-side-panel {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border: 1px solid var(--border-color) !important;
+}
+/* Fix Calendar Container for Dark Mode */
+.calendar-container {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Force the angular-calendar library to use theme colors */
+.dark-theme .cal-month-view,
+.dark-theme .cal-week-view,
+.dark-theme .cal-day-view,
+.dark-theme .cal-header {
+  background-color: #1e1e1e !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+
+.dark-theme .cal-cell-row:hover {
+  background-color: #2d2d2d !important;
+}
+
+.dark-theme .cal-month-view .cal-day-cell.cal-today {
+  background-color: #334155 !important;
+}
+
+/* Fix Inputs inside Add Event Panel */
+.add-event-panel input, 
+.add-event-panel textarea {
+  background-color: var(--bg-workspace) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 8px;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+/* Apply black to the sidebar and background */
+.dark-theme .sidebar, 
+.dark-theme .teams-list,
+.dark-theme .dashboard-content {
+  background-color: #000000 !important;
+  color: white !important;
+}
+
+.dark-theme .sidebar li:hover {
+  background-color: #1a1a1a !important;
+}
+/* Force the entire calendar grid to be black in Dark Mode */
+.dark-theme .cal-month-view,
+.dark-theme .cal-week-view,
+.dark-theme .cal-day-view,
+.dark-theme .cal-time-events,
+.dark-theme .cal-day-columns {
+  background-color: #000000 !important;
+}
+
+/* Fix the white 'zebra' stripes in the week/day view */
+.dark-theme .cal-day-columns .cal-hour-odd,
+.dark-theme .cal-day-columns .cal-hour-even,
+.dark-theme .cal-hour-segment {
+  background-color: #000000 !important;
+  border-bottom: 1px solid #333 !important; /* Subtle grid lines */
+}
+
+/* Fix the time labels on the left */
+.dark-theme .cal-time {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Fix the header (Days of the week) */
+.dark-theme .cal-header,
+.dark-theme .cal-day-headers {
+  background-color: #000000 !important;
+  border-bottom: 2px solid #444 !important;
+}
+
+/* FORCE TOTAL BLACK ON EVERYTHING */
+body.dark-theme, 
+body.dark-theme .team-workspace,
+body.dark-theme .chat-panel,
+body.dark-theme .notes-container,
+body.dark-theme .calendar-container,
+body.dark-theme .dashboard-container {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* FIX CALENDAR WHITE STRIPES (image_6aeece.png) */
+body.dark-theme .cal-month-view,
+body.dark-theme .cal-week-view,
+body.dark-theme .cal-day-view,
+body.dark-theme .cal-hour-segment,
+body.dark-theme .cal-hour,
+body.dark-theme .cal-day-column,
+body.dark-theme .cal-time,
+body.dark-theme .cal-all-day-events {
+  background-color: #000000 !important;
+  background: #000000 !important; /* Removes default gradients */
+  border-color: #222222 !important; /* Subtle dark grid */
+}
+
+/* FIX TEAM DASHBOARD WHITE HEADERS (image_6bb963.jpg) */
+body.dark-theme .chat-header,
+body.dark-theme .workspace-header {
+  background-color: #000000 !important;
+  color: white !important;
+  border-bottom: 1px solid #222 !important;
+}
+
+/* FIX INPUTS AND DROPDOWNS */
+body.dark-theme input, 
+body.dark-theme textarea, 
+body.dark-theme select {
+  background-color: #111111 !important;
+  color: white !important;
+  border: 1px solid #444 !important;
+}
+/* Center the main content area */
+body.dark-theme .team-workspace,
+body.dark-theme .notes-container,
+body.dark-theme .calendar-container {
+  max-width: 1200px;
+  margin: 0 auto !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center the specific Note Form */
+body.dark-theme .note-form,
+body.dark-theme .add-event-panel {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto !important;
+  background-color: #0a0a0a !important;
+  padding: 25px;
+  border-radius: 12px;
+}
+/* FORCE CHAT INPUT AREA TO BLACK */
+body.dark-theme .chat-input-container {
+  background-color: #000000 !important;
+  border-top: 1px solid #222 !important;
+  padding: 15px;
+}
+
+/* THE INPUT BOX ITSELF */
+body.dark-theme .chat-input {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* THE SEND BUTTON */
+body.dark-theme .btn-send {
+  background-color: #7b423c !important; /* Your brown color */
+  color: white !important;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+/* Search backdrop fix */
+body.dark-theme .search-backdrop {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+
+/* =========================
+   TOTAL BLACK HEADER
+========================= */
+
+/* Main Header Bar */
+body.dark-theme .header {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid #1a1a1a !important;
+}
+
+/* Sidebar Toggle & Logo Text */
+body.dark-theme .sidebar-toggle,
+body.dark-theme .logo span {
+  color: #ffffff !important;
+}
+
+/* Search Wrapper & Input */
+body.dark-theme .header-center .search-wrapper input {
+  background-color: #0d0d0d !important;
+  color: #ffffff !important;
+  border: 1px solid #333 !important;
+}
+
+/* Search Results Dropdown */
+body.dark-theme .search-results {
+  background-color: #000000 !important;
+  border: 1px solid #333 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important;
+}
+
+body.dark-theme .result-item:hover {
+  background-color: #1a1a1a !important;
+}
+
+/* Icons (SVG) color fix */
+body.dark-theme .header-right button svg {
+  stroke: #ffffff !important;
+}
+
+/* =========================
+   DROPDOWNS & PANELS
+========================= */
+
+/* Notifications, Help, and Settings Content */
+body.dark-theme .dropdown-content,
+body.dark-theme .notification-panel,
+body.dark-theme .settings-content {
+  background-color: #000000 !important;
+  border: 1px solid #222 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Settings List (Left Side Menu) */
+body.dark-theme .settings-list {
+  border-right: 1px solid #222 !important;
+}
+
+body.dark-theme .settings-list p:hover {
+  background-color: #111111 !important;
+}
+
+body.dark-theme .settings-list p.active {
+  color: #c5887d !important; /* Your brown accent */
+  background-color: #0d0d0d !important;
+}
+
+/* Profile Side Panel */
+body.dark-theme .profile-side-panel {
+  background-color: #000000 !important;
+  border-left: 1px solid #222 !important;
+  color: #ffffff !important;
+}
+
+/* Form Elements inside Settings */
+body.dark-theme .settings-details input,
+body.dark-theme .settings-details select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+
+
+/* Keyboard shortcuts <kbd> tag */
+body.dark-theme kbd {
+  background-color: #222 !important;
+  color: #ffffff !important;
+  border: 1px solid #444 !important;
+}
+/* =========================
+   SETTINGS TOTAL BLACK FIX
+   ========================= */
+
+/* Fix the white sidebar in the settings dropdown */
+body.dark-theme .settings-list {
+  background-color: #000000 !important;
+  border-right: 1px solid #222 !important;
+  padding: 10px 0;
+}
+
+/* Ensure all menu items are visible */
+body.dark-theme .settings-list p {
+  color: #ffffff !important;
+  background-color: transparent !important;
+  padding: 12px 20px;
+  margin: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Hover effect for menu items */
+body.dark-theme .settings-list p:hover {
+  background-color: #1a1a1a !important;
+}
+
+/* Active menu item (Matching your brown theme) */
+body.dark-theme .settings-list p.active {
+  background-color: #111111 !important;
+  color: #c5887d !important; /* Soft brown for active text */
+  border-left: 3px solid #7b423c;
+}
+
+/* Fix the right side details panel */
+body.dark-theme .settings-details {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  padding: 20px;
+}
+/* Ensure the entire settings dropdown container is black */
+body.dark-theme .dropdown-content.settings-content {
+  background-color: #000000 !important;
+  border: 1px solid #333 !important;
+  display: flex; /* Keeps the sidebar and details side-by-side */
+  padding: 0;
+  overflow: hidden;
+}
+/* Force calendar grid segments to stay black */
+body.dark-theme .cal-hour-segment,
+body.dark-theme .cal-day-column,
+body.dark-theme .cal-hour {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+/* =========================
+   PRIVACY & COOKIES DARK FIX
+========================= */
+
+/* Fix the white card background in Privacy settings */
+body.dark-theme .privacy-settings .toggle-row,
+body.dark-theme .privacy-settings .cookie-card, /* if you used this class */
+body.dark-theme .privacy-settings div[style*="background-color: white"] {
+  background-color: #0d0d0d !important; /* Slightly raised black */
+  border: 1px solid #333 !important;
+  color: #ffffff !important;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+/* Ensure the text inside the cookie card is visible */
+body.dark-theme .privacy-settings .toggle-text strong,
+body.dark-theme .privacy-settings .toggle-text span {
+  color: #ffffff !important;
+}
+
+/* Fix the description text color if it's currently blue/dark */
+body.dark-theme .privacy-settings .description {
+  color: #aaaaaa !important;
+}
+
+
+
+body.dark-theme .tab-item {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+body.dark-theme .tab-item.active {
+  background-color: #333333;
+}
+/* ADD THIS TO THE VERY BOTTOM OF YOUR GLOBAL CSS FILE */
+body.dark-theme .dashboard-wrapper,
+body.dark-theme .dashboard-sidebar,
+body.dark-theme .dashboard-content,
+body.dark-theme .dashboard-main,
+body.dark-theme .sidebar,
+body.dark-theme main.content {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #222222 !important;
+}
+
+/* Container Background */
+body.dark-theme .mylist-container {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Individual Task Cards */
+body.dark-theme .task-card {
+  background-color: #111111 !important; /* Subtle charcoal to stand out from pure black */
+  border: 1px solid #222222 !important;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: transform 0.2s ease;
+}
+
+body.dark-theme .task-card:hover {
+  border-color: #444444 !important;
+}
+
+/* Task Info Text */
+body.dark-theme .task-info .title {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+body.dark-theme .task-info .time,
+body.dark-theme .task-info .description {
+  color: #aaaaaa !important; /* Muted grey for metadata */
+}
+
+/* Strikethrough for Completed Tasks */
+body.dark-theme .task-card.done {
+  opacity: 0.6;
+  background-color: #080808 !important;
+}
+
+body.dark-theme .task-card.done .title {
+  text-decoration: line-through;
+  color: #666666 !important;
+}/* Modal Backdrop */
+body.dark-theme .add-task-modal {
+  background-color: rgba(0, 0, 0, 0.8) !important; /* Dim the background */
+}
+
+/* Modal Box */
+body.dark-theme .modal-content {
+  background-color: #161616 !important;
+  border: 1px solid #333333 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Modal Inputs & Select */
+body.dark-theme .modal-content h3 {
+  color: #ffffff !important;
+}
+
+body.dark-theme .modal-content input,
+body.dark-theme .modal-content textarea,
+body.dark-theme .modal-content select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #444444 !important;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+body.dark-theme .modal-content input:focus {
+  border-color: #7b423c !important; /* Your brown accent */
+}/* Floating + Button */
+body.dark-theme .add-task-btn {
+  background-color: #7b423c !important; /* Brown accent */
+  color: white !important;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Card Buttons (Done / Delete) */
+body.dark-theme .done-btn {
+  background-color: #1a2e1a !important; /* Dark green hue */
+  color: #4ade80 !important;
+  border: 1px solid #2d4d2d !important;
+}
+
+body.dark-theme .delete-btn {
+  background-color: #2e1a1a !important; /* Dark red hue */
+  color: #f87171 !important;
+  border: 1px solid #4d2d2d !important;
+}
+
+/* Modal Action Buttons */
+body.dark-theme .modal-buttons button.primary {
+  background-color: #7b423c !important;
+  color: white !important;
+}
+
+body.dark-theme .modal-buttons button:not(.primary) {
+  background-color: transparent !important;
+  color: #aaaaaa !important;
+  border: 1px solid #333333 !important;
+}body.dark-theme .priority-bookmark.urgent { background-color: #ff4d4d !important; }
+body.dark-theme .priority-bookmark.medium { background-color: #ffaa00 !important; }
+body.dark-theme .priority-bookmark.low    { background-color: #00ccff !important; }
+
+body.dark-theme .empty-state {
+  color: #666666 !important;
+}
+/* Column Backgrounds */
+body.dark-theme .kanban-column {
+  background-color: #000000 !important;
+  border: 1px solid #1a1a1a !important;
+  border-radius: 12px;
+  min-height: 80vh;
+}
+
+/* Column Headers */
+body.dark-theme .column-header h3 {
+  color: #c5887d !important; /* Your signature brown accent */
+  font-size: 1.1rem;
+  padding: 15px;
+  border-bottom: 2px solid #111111;
+}/* Task Card Style */
+body.dark-theme app-task-card .task-card {
+  background-color: #111111 !important;
+  border: 1px solid #222222 !important;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .task-title {
+  color: #ffffff !important;
+}
+
+body.dark-theme .task-desc {
+  color: #888888 !important; /* Muted description */
+}
+
+/* Meta Data (Assigned info) */
+body.dark-theme .meta-row .small {
+  color: #555555 !important;
+}
+
+body.dark-theme .meta-row .email {
+  color: #aaaaaa !important;
+  font-size: 0.85rem;
+}
+
+/* Tags within cards */
+body.dark-theme .tag {
+  background-color: #1a1a1a !important;
+  color: #c5887d !important;
+  border: 1px solid #333333 !important;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}/* Modal Backdrop */
+body.dark-theme .modal-bg {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Modal Content */
+body.dark-theme .modal {
+  background-color: #0d0d0d !important;
+  border: 1px solid #333333 !important;
+  color: #ffffff !important;
+  padding: 30px;
+  border-radius: 16px;
+}
+
+/* Form Groups inside Modal */
+body.dark-theme .form-group label {
+  color: #c5887d !important;
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea,
+body.dark-theme .form-group select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #333333 !important;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+body.dark-theme .form-group input:focus {
+  border-color: #7b423c !important;
+}/* Action Buttons */
+body.dark-theme .create-btn {
+  background-color: #7b423c !important; /* Brown */
+  color: white !important;
+  border: none;
+}
+
+body.dark-theme .cancel-btn {
+  background-color: transparent !important;
+  color: #888888 !important;
+  border: 1px solid #333333 !important;
+}
+
+body.dark-theme .small-btn {
+  background-color: #222222 !important;
+  color: #ffffff !important;
+  border: 1px solid #444444 !important;
+}
+
+/* Select/Dropdown Arrow fix */
+body.dark-theme select {
+  cursor: pointer;
+}
+/* Main Wrapper */
+body.dark-theme .dashboard-wrapper {
+  background-color: #000000 !important;
+}
+
+/* Sidebar Styling */
+body.dark-theme .sidebar {
+  background-color: #000000 !important;
+  border-right: 1px solid #1a1a1a !important;
+}
+
+body.dark-theme .sidebar ul li a, 
+body.dark-theme .sidebar ul li button {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+body.dark-theme .sidebar ul li:hover {
+  background-color: #111111 !important;
+}
+
+/* Submenu inside Sidebar */
+body.dark-theme .submenu {
+  background-color: #080808 !important;
+  border-left: 2px solid #7b423c !important; /* Brown accent line */
+}
+
+body.dark-theme .submenu li {
+  color: #aaaaaa !important;
+}/* Top Container */
+body.dark-theme .fixed-top-section {
+  background-color: #000000 !important;
+  border-bottom: 1px solid #1a1a1a !important;
+}
+
+/* Widgets Area (Mini Timer, Quote, etc.) */
+body.dark-theme .dashboard-widgets {
+  background-color: #000000 !important;
+  gap: 15px;
+}
+
+/* Tabs Navigation */
+body.dark-theme .dashboard-tabs {
+  background-color: #000000 !important;
+  border-top: 1px solid #111111 !important;
+}
+
+body.dark-theme .tab-item {
+  color: #888888 !important;
+  background: transparent !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+body.dark-theme .tab-item:hover {
+  color: #ffffff !important;
+}
+
+/* Active Tab (matching your brown theme) */
+body.dark-theme .tab-item.active {
+  color: #c5887d !important;
+  border-bottom: 2px solid #7b423c !important;
+  background-color: #0a0a0a !important;
+}/* Backdrop */
+body.dark-theme .contact-modal {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Modal Content Box */
+body.dark-theme .contact-modal .modal-content {
+  background-color: #0d0d0d !important;
+  border: 1px solid #333333 !important;
+  color: #ffffff !important;
+  border-radius: 15px;
+}
+
+/* Form Inputs */
+body.dark-theme .contact-modal input,
+body.dark-theme .contact-modal textarea {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #444444 !important;
+  padding: 12px;
+}
+
+/* Submit Button */
+body.dark-theme .contact-modal button[type="submit"] {
+  background-color: #7b423c !important;
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Close Button (X) */
+body.dark-theme .close-btn {
+  color: #ffffff !important;
+  background: transparent !important;
+}body.dark-theme .dashboard-main {
+  background-color: #000000 !important;
+}
+
+/* If you have scrolling inner content */
+body.dark-theme .dashboard-inner {
+  background-color: #000000 !important;
+}
+/* Main Header Bar */
+body.dark-theme .header {
+  background-color: #000000 !important;
+  border-bottom: 1px solid #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+/* Search Input */
+body.dark-theme .search-wrapper input {
+  background-color: #0d0d0d !important; /* Slightly raised from total black */
+  color: #ffffff !important;
+  border: 1px solid #333333 !important;
+  border-radius: 20px;
+}
+
+/* Search Results Dropdown */
+body.dark-theme .search-results {
+  background-color: #000000 !important;
+  border: 1px solid #222222 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+}
+
+body.dark-theme .result-item {
+  border-bottom: 1px solid #111111;
+}
+
+body.dark-theme .result-item:hover {
+  background-color: #111111 !important;
+}/* Floating Dropdowns */
+body.dark-theme .dropdown-content,
+body.dark-theme .notification-panel {
+  background-color: #000000 !important;
+  border: 1px solid #333333 !important;
+  color: #ffffff !important;
+  box-shadow: none !important; /* Shadows look messy in pure black themes */
+}
+
+/* Notification Items */
+body.dark-theme .noti-item {
+  border-bottom: 1px solid #111111;
+  background-color: transparent !important;
+}
+
+body.dark-theme .noti-item small {
+  color: #666666 !important;
+}
+
+/* Icon colors */
+body.dark-theme .header-right svg {
+  color: #ffffff !important;
+}/* Settings Content Container */
+body.dark-theme .settings-content {
+  display: flex;
+  background-color: #000000 !important;
+  padding: 0;
+}
+
+/* Settings Sidebar (Left) */
+body.dark-theme .settings-list {
+  background-color: #050505 !important;
+  border-right: 1px solid #1a1a1a !important;
+}
+
+body.dark-theme .settings-list p {
+  color: #aaaaaa !important;
+}
+
+body.dark-theme .settings-list p.active {
+  color: #c5887d !important; /* Brown accent */
+  background-color: #111111 !important;
+}
+
+/* Settings Forms (Right) */
+body.dark-theme .settings-details {
+  background-color: #000000 !important;
+}
+
+body.dark-theme .settings-details input,
+body.dark-theme .settings-details select {
+  background-color: #0d0d0d !important;
+  border: 1px solid #333333 !important;
+  color: #ffffff !important;
+}/* Profile Panel */
+body.dark-theme .profile-side-panel {
+  background-color: #000000 !important;
+  border-left: 1px solid #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+/* Profile Buttons (Theme/Logout) */
+body.dark-theme .theme-buttons button {
+  background-color: #111111 !important;
+  color: #888888 !important;
+  border: 1px solid #333333 !important;
+}
+
+body.dark-theme .theme-buttons button.active {
+  background-color: #7b423c !important;
+  color: white !important;
+}
+
+/* Overlays and Modals (Help, Shortcuts, Feedback) */
+body.dark-theme .modal-overlay,
+body.dark-theme .feedback-overlay {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+body.dark-theme .help-article-card,
+body.dark-theme .feedback-card,
+body.dark-theme .shortcut-card {
+  background-color: #0a0a0a !important;
+  border: 1px solid #222222 !important;
+  color: #ffffff !important;
+}
+
+/* Shortcuts <kbd> styling */
+body.dark-theme kbd {
+  background-color: #222222 !important;
+  color: #c5887d !important;
+  border: 1px solid #444444 !important;
+}/* Buttons */
+body.dark-theme .primary-modal-btn,
+body.dark-theme .send-feedback-btn,
+body.dark-theme .save-pref-btn {
+  background-color: #7b423c !important;
+  color: white !important;
+}
+
+/* Success Toast */
+body.dark-theme .success-toast {
+  background-color: #1a1a1a !important;
+  border: 1px solid #4ade80 !important;
+  color: #4ade80 !important;
+}
+/* Target the wrapper shown in your inspect element */
+body.dark-theme .dashboard-header {
+  background-color: #000000 !important;
+  background: #000000 !important;
+  border-bottom: 1px solid #1a1a1a !important;
+  padding: 0 !important; /* Ensure no white padding is visible */
+}
+/* welcome.component.css */
+
+/* 1. Force the host to allow expansion */
+:host {
+    display: block !important;
+    height: auto !important; /* Allow it to grow beyond the screen */
+    min-height: 100vh;
+    overflow-y: visible !important;
+    background-color: #000000;
+}
+
+/* 2. Reset the layout wrapper if it's nested */
+.welcome-page-container {
+    display: block;
+    height: auto;
+    overflow: visible;
+}
+
+/* 3. Ensure no section is trapping the height */
+section {
+    height: auto !important;
+    min-height: 300px;
+    overflow: visible !important;
+}
+/* global styles.css */
+
+/* Only apply this reset when the Welcome page is active */
+body:has(app-welcome) {
+    overflow: visible !important;
+    height: auto !important;
+    position: relative !important;
+}
+
+/* Ensure the root Angular tag doesn't lock height */
+body:has(app-welcome) app-root {
+    height: auto !important;
+    display: block;
+}
+body:has(app-welcome) app-root {
+    height: auto !important;
+    display: block;
+}
